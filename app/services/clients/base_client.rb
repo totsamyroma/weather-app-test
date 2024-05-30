@@ -7,7 +7,8 @@ module Clients
 
     def get(path, query:)
       response = self.class.get(path, query:)
-      JSON.parse(response.body.to_s)
+
+      [response.code, JSON.parse(response.body.to_s)]
     end
   end
 end

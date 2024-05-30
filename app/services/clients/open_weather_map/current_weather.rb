@@ -11,12 +11,19 @@ module Clients
         query = {
           lat: lat,
           lon: lon,
+          mode: mode,
           units: units,
           lang: lang,
           appid: @app_id,
         }
 
-        get("/weather", query:)
+        Rails.cache.fetch({ api: :weather, action: :weather, **query.except(:appid) }, namespace: :openweathermap, expires_in: 10.minutes) do
+          code, _body = result = get("/weather", query:)
+
+          break result unless code == 200
+
+          result
+        end
       end
     end
   end
