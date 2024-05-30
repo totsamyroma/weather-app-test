@@ -13,7 +13,7 @@ module Clients
           lon: lon,
           units: units,
           lang: lang,
-          appid: @api_id,
+          appid: @app_id,
         }
 
         get("/weather", query:)
