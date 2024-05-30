@@ -3,8 +3,8 @@
 module Clients
   module OpenWeatherMap
     class BaseClient < Clients::BaseClient
-      def initialize(api_id = ENV["OPEN_WEATHER_MAP_API_ID"])
-        @api_id = api_id
+      def initialize(app_id = ENV["OPEN_WEATHER_MAP_APP_ID"])
+        @app_id = app_id
       end
     end
   end

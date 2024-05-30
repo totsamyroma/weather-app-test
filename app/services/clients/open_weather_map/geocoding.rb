@@ -9,7 +9,7 @@ module Clients
         query = {
           q: q,
           limit: limit,
-          appid: @api_id,
+          appid: @app_id,
         }
 
         get("/direct", query:)
