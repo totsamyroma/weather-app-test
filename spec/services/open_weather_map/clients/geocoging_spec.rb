@@ -9,7 +9,7 @@ RSpec.describe(OpenWeatherMap::Clients::Geocoding) do
 
     context "with invalid api id" do
       let(:app_id) { "foo" }
-      let(:stubbed_response) { File.read("spec/services/clients/open_weather_map/examples/geocoding/401.json") }
+      let(:stubbed_response) { File.read("spec/services/open_weather_map/clients/examples/geocoding/401.json") }
 
       before do
         stub_request(:get, "https://api.openweathermap.org/geo/1.0/direct?appid=foo&limit=1&q=#{city_name.upcase}")
@@ -31,7 +31,7 @@ RSpec.describe(OpenWeatherMap::Clients::Geocoding) do
 
     context "with valid api id" do
       let(:app_id) { "bar" }
-      let(:stubbed_response) { File.read("spec/services/clients/open_weather_map/examples/geocoding/200.json") }
+      let(:stubbed_response) { File.read("spec/services/open_weather_map/clients/examples/geocoding/200.json") }
 
       before do
         stub_request(:get, "https://api.openweathermap.org/geo/1.0/direct?appid=bar&limit=1&q=LONDON")
@@ -48,6 +48,18 @@ RSpec.describe(OpenWeatherMap::Clients::Geocoding) do
       it "returns 200 response and caches it" do
         expect(geocoding).to(eq([200, stubbed_response]))
         expect(Rails.cache.exist?(cache_key, namespace: :openweathermap_geocoding)).to(be(true))
+      end
+
+      context "when limit is not in allowed list" do
+        subject(:geocoding) { described_class.new(app_id:).direct(q: city_name) }
+
+        let(:cache_key) { { q: city_name.upcase, limit: 1 } }
+
+        it "defaults limit to a 1" do
+          expect(OpenWeatherMap::Clients::Caching).to receive(:fetch).with(cache_key, namespace: :openweathermap_geocoding, expires_in: nil).and_return(true)
+
+          geocoding
+        end
       end
     end
   end
