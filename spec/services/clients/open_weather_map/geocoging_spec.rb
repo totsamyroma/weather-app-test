@@ -1,16 +1,15 @@
 require "rails_helper"
 
-RSpec.describe(Clients::OpenWeatherMap::Geocoding) do
+RSpec.describe(OpenWeatherMap::Clients::Geocoding) do
   describe "#direct" do
-    subject(:geocoding) { described_class.new(app_id).direct(q: city_name, limit: 1) }
+    subject(:geocoding) { described_class.new(app_id:).direct(q: city_name, limit: 1) }
 
     let(:city_name) { "London" }
-    let(:cache_key) { { api: :geocoding, action: :direct, q: city_name.upcase, limit: 1 } }
+    let(:cache_key) { { q: city_name.upcase, limit: 1 } }
 
     context "with invalid api id" do
       let(:app_id) { "foo" }
       let(:stubbed_response) { File.read("spec/services/clients/open_weather_map/examples/geocoding/401.json") }
-      let(:expected_result) { JSON.parse(stubbed_response) }
 
       before do
         stub_request(:get, "https://api.openweathermap.org/geo/1.0/direct?appid=foo&limit=1&q=#{city_name.upcase}")
@@ -25,15 +24,14 @@ RSpec.describe(Clients::OpenWeatherMap::Geocoding) do
       end
 
       it "returns 401 response and does not cache it" do
-        expect(geocoding).to(eq([401, expected_result]))
-        expect(Rails.cache.exist?(cache_key, namespace: :openweathermap)).to(be(false))
+        expect(geocoding).to(eq([401, stubbed_response]))
+        expect(Rails.cache.exist?(cache_key, namespace: :openweathermap_geocoding)).to(be(false))
       end
     end
 
     context "with valid api id" do
       let(:app_id) { "bar" }
       let(:stubbed_response) { File.read("spec/services/clients/open_weather_map/examples/geocoding/200.json") }
-      let(:expected_result) { JSON.parse(stubbed_response) }
 
       before do
         stub_request(:get, "https://api.openweathermap.org/geo/1.0/direct?appid=bar&limit=1&q=LONDON")
@@ -48,8 +46,8 @@ RSpec.describe(Clients::OpenWeatherMap::Geocoding) do
       end
 
       it "returns 200 response and caches it" do
-        expect(geocoding).to(eq([200, expected_result]))
-        expect(Rails.cache.exist?(cache_key, namespace: :openweathermap)).to(be(true))
+        expect(geocoding).to(eq([200, stubbed_response]))
+        expect(Rails.cache.exist?(cache_key, namespace: :openweathermap_geocoding)).to(be(true))
       end
     end
   end
