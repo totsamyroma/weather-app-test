@@ -29,11 +29,11 @@ module Weather
       Caching.fetch(cache_key, namespace: CACHE_NAMESPACE) do
         code, body = @geocoding_client.direct(q: @city)
 
-        break { error: "Can't locate the city" } unless code == 200
+        break { error: "Can't access OpenWeatherMap API" } if code == 401
 
         geolocation = JSON.parse(body).first
 
-        break { error: "Can't locate the city" } unless geolocation
+        break { error: "Can't locate the city" } unless geolocation && code == 200
 
         code, body = @weather_client.current_weather(lat: geolocation["lat"], lon: geolocation["lon"], units: @units, mode: @mode, lang: @lang)
 
