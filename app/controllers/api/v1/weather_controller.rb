@@ -8,12 +8,13 @@ class Api::V1::WeatherController < ApplicationController
   # TODO: add support for zip code with country code or direct coordinates forecast
   # Could be separeate api endpoints like /api/v1/weather/zip?zip_code=123&country_code=UK and /api/v1/weather/coordinates?lat=123&lon=123
   def city
-    respond_to do |format|
-      format.json { render json: city_weather }
-      format.html { render html: city_weather }
-      format.xml { render xml: city_weather }
+    ::Metrics::ReadLatency.observe do
+      respond_to do |format|
+        format.json { render json: city_weather }
+        format.html { render html: city_weather }
+        format.xml { render xml: city_weather }
+      end
     end
-
   end
 
   private
@@ -23,9 +24,6 @@ class Api::V1::WeatherController < ApplicationController
   end
 
   def city_weather
-    # add average response time metric with opentelemetry
-
-
     @city_weather ||= begin
       geocoding_client = OpenWeatherMap::Clients::Geocoding.new
       weather_client = OpenWeatherMap::Clients::Weather.new

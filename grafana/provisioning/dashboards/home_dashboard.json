@@ -1,0 +1,50 @@
+{
+  "id": null,
+  "title": "Home Dashboard",
+  "tags": [],
+  "timezone": "browser",
+  "schemaVersion": 16,
+  "version": 0,
+  "refresh": "5s",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Average HTTP Requests",
+      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 9 },
+      "id": 1,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "avg_over_time(api_v1_weather_city_requests_count[1m])",
+          "legendFormat": "avg requests per minute",
+          "refId": "A"
+        }
+      ],
+      "lines": true,
+      "fill": 1
+    },
+    {
+      "type": "graph",
+      "title": "Average Response Time",
+      "gridPos": { "x": 0, "y": 9, "w": 24, "h": 9 },
+      "id": 2,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(rate(api_v1_weather_city_requests_sum[1m])) / sum(rate(api_v1_weather_city_requests_count[1m]))",
+          "legendFormat": "avg response time (s) per minute",
+          "refId": "A"
+        }
+      ],
+      "lines": true,
+      "fill": 1
+    }
+  ],
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  }
+}
+

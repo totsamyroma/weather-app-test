@@ -55,7 +55,7 @@ module Weather
     end
 
     def telemetry_tracer
-      @telemetry_tracer ||= OpenTelemetry.tracer_provider.tracer('Weather::City')
+      @telemetry_tracer ||= OpenTelemetry.tracer_provider.tracer("Weather::City")
     end
 
     def with_telemetry(method:, &block)
