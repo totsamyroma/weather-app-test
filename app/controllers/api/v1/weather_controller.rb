@@ -4,8 +4,8 @@ class Api::V1::WeatherController < ApplicationController
   def city
     respond_to do |format|
       format.json { render json: city_weather }
-      format.html { render html: city_weather.to_s }
-      format.xml { render xml: city_weather.to_xml }
+      format.html { render html: city_weather }
+      format.xml { render xml: city_weather }
     end
   end
 
