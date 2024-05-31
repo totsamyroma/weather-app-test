@@ -30,6 +30,7 @@ services:
     ports:
       - "4318:4318"
       - "8889:8889"
+      - "8888:8888"  # Expose the Prometheus metrics endpoint
     depends_on:
       - jaeger
 
@@ -39,6 +40,8 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
+    depends_on:
+      - otel-collector
 
   grafana:
     image: grafana/grafana:latest
@@ -61,7 +64,6 @@ services:
       - DATABASE_URL=postgres://postgres:password@postgres:5432/myapp_production
       - REDIS_URL=redis://redis:6379/0
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4318
-      - PROMETHEUS_EXPORTER_PORT=9394
     depends_on:
       - postgres
       - redis

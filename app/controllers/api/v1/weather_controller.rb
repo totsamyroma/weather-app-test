@@ -8,14 +8,6 @@ class Api::V1::WeatherController < ApplicationController
   # TODO: add support for zip code with country code or direct coordinates forecast
   # Could be separeate api endpoints like /api/v1/weather/zip?zip_code=123&country_code=UK and /api/v1/weather/coordinates?lat=123&lon=123
   def city
-    start_time = Time.now
-
-    city_weather
-
-    response_time = Time.now - start_time
-    WEATHER_REQUESTS_COUNTER.observe(1)
-    WEATHER_RESPONSE_TIME.observe(response_time)
-
     respond_to do |format|
       format.json { render json: city_weather }
       format.html { render html: city_weather }

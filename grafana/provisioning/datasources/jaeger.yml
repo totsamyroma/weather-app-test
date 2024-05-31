@@ -5,4 +5,6 @@ datasources:
     type: jaeger
     access: proxy
     url: http://jaeger:16686
+    default: false
+    editable: true
 
