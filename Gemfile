@@ -35,7 +35,6 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 
-
 gem "dotenv"
 
 gem "httparty", require: true
@@ -43,6 +42,14 @@ gem "httparty", require: true
 gem "rack-attack"
 
 gem "redis-rails"
+
+gem "pg"
+
+gem 'opentelemetry-api'
+gem 'opentelemetry-sdk'
+gem 'opentelemetry-exporter-otlp'
+gem 'opentelemetry-instrumentation-all'
+gem 'prometheus_exporter'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
