@@ -1,6 +1,6 @@
 {
   "id": null,
-  "title": "Custom Dashboard",
+  "title": "Averagge Rate Dashboard",
   "tags": [],
   "timezone": "browser",
   "schemaVersion": 16,
@@ -9,7 +9,7 @@
   "panels": [
     {
       "type": "graph",
-      "title": "Average HTTP Requests",
+      "title": "Average Rate",
       "gridPos": { "x": 0, "y": 0, "w": 24, "h": 9 },
       "id": 1,
       "datasource": "Prometheus",
