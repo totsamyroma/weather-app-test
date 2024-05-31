@@ -22,6 +22,8 @@ module Weather
     end
 
     def current_weather
+      return { error: "City name can't be blank" } if @city.blank?
+
       @mode = DEFAULT_MODE unless @mode.in?(ALLOWED_MODES)
       @units = DEFAULT_UNITS unless @units.in?(ALLOWED_UNITS)
       @lang = DEFAULT_LANG unless @lang.in?(ALLOWED_LANGS)

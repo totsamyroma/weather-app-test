@@ -36,6 +36,19 @@ RSpec.describe(Weather::City) do
       end
     end
 
+    context "with blank city name" do
+      let(:city) { "" }
+
+      let(:geocoding_client) { nil }
+      let(:weather_client) { nil }
+      let(:expected_result) { { error: "City name can't be blank" } }
+
+      it "returns returns error and does not cache it" do
+        expect(current_weather).to(eq(expected_result))
+        expect(Rails.cache.exist?(cache_key, namespace: :weather_city_current_weather)).to(be(false))
+      end
+    end
+
     context "with invalid city nanme" do
       let(:city) { "XXX" }
 
