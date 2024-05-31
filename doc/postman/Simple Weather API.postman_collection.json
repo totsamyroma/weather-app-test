@@ -1,0 +1,345 @@
+{
+	"info": {
+		"_postman_id": "262bb0aa-6ce7-4088-88ae-d5054cf1779a",
+		"name": "Simple Weather API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16837693"
+	},
+	"item": [
+		{
+			"name": "Modes",
+			"item": [
+				{
+					"name": "JSON",
+					"protocolProfileBehavior": {
+						"strictSSL": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/weather/city?city=Riga&mode=json",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"city"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Riga"
+								},
+								{
+									"key": "mode",
+									"value": "json"
+								}
+							]
+						},
+						"description": "``` json\n{\n    \"coord\": {\n        \"lon\": 24.1052,\n        \"lat\": 56.9494\n    },\n    \"weather\": [\n        {\n            \"id\": 801,\n            \"main\": \"Clouds\",\n            \"description\": \"few clouds\",\n            \"icon\": \"02n\"\n        }\n    ],\n    \"base\": \"stations\",\n    \"main\": {\n        \"temp\": 291.11,\n        \"feels_like\": 291.26,\n        \"temp_min\": 291.11,\n        \"temp_max\": 291.11,\n        \"pressure\": 1011,\n        \"humidity\": 88\n    },\n    \"visibility\": 10000,\n    \"wind\": {\n        \"speed\": 1.54,\n        \"deg\": 360\n    },\n    \"clouds\": {\n        \"all\": 20\n    },\n    \"dt\": 1717187771,\n    \"sys\": {\n        \"type\": 1,\n        \"id\": 1876,\n        \"country\": \"LV\",\n        \"sunrise\": 1717119584,\n        \"sunset\": 1717182193\n    },\n    \"timezone\": 10800,\n    \"id\": 6615326,\n    \"name\": \"Vecrīga\",\n    \"cod\": 200\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "XML",
+					"protocolProfileBehavior": {
+						"strictSSL": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/weather/city?city=Riga&mode=xml",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"city"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Riga"
+								},
+								{
+									"key": "mode",
+									"value": "xml"
+								}
+							]
+						},
+						"description": "``` xml\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<current>\n    <city id=\"6615326\" name=\"Vecrīga\">\n        <coord lon=\"24.1052\" lat=\"56.9494\"></coord>\n        <country>LV</country>\n        <timezone>10800</timezone>\n        <sun rise=\"2024-06-01T01:38:35\" set=\"2024-06-01T19:04:40\"></sun>\n    </city>\n    <temperature value=\"291.98\" min=\"290.11\" max=\"291.98\" unit=\"kelvin\"></temperature>\n    <feels_like value=\"292.01\" unit=\"kelvin\"></feels_like>\n    <humidity value=\"80\" unit=\"%\"></humidity>\n    <pressure value=\"1011\" unit=\"hPa\"></pressure>\n    <wind>\n        <speed value=\"3.09\" unit=\"m/s\" name=\"Light breeze\"></speed>\n        <gusts></gusts>\n        <direction value=\"180\" code=\"S\" name=\"South\"></direction>\n    </wind>\n    <clouds value=\"20\" name=\"few clouds\"></clouds>\n    <visibility value=\"10000\"></visibility>\n    <precipitation mode=\"no\"></precipitation>\n    <weather number=\"801\" value=\"few clouds\" icon=\"02n\"></weather>\n    <lastupdate value=\"2024-05-31T21:05:46\"></lastupdate>\n</current>\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "HTML",
+					"protocolProfileBehavior": {
+						"strictSSL": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/weather/city?city=Riga&mode=html",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"city"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Riga"
+								},
+								{
+									"key": "mode",
+									"value": "html"
+								}
+							]
+						},
+						"description": "``` html\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"keywords\" content=\"weather, world, openweathermap, weather, layer\" />\n    <meta name=\"description\" content=\"A layer with current weather conditions in cities for world wide\" />\n    <meta name=\"domain\" content=\"openweathermap.org\" />\n    <meta http-equiv=\"pragma\" content=\"no-cache\" />\n    <meta http-equiv=\"Expires\" content=\"-1\" />\n</head>\n\n<body>\n    <div style=\"font-size: medium; font-weight: bold; margin-bottom: 0px;\">Vecrīga</div>\n    <div style=\"float: left; width: 130px;\">\n        <div style=\"display: block; clear: left;\">\n            <div style=\"float: left;\" title=\"Titel\">\n                <img height=\"45\" width=\"45\" style=\"border: medium none; width: 45px; height: 45px; background: url(&quot;http://openweathermap.org/img/w/02n.png&quot;) repeat scroll 0% 0% transparent;\" alt=\"title\" src=\"http://openweathermap.org/images/transparent.png\"/>\n            </div>\n            <div style=\"float: left;\">\n                <div style=\"display: block; clear: left; font-size: medium; font-weight: bold; padding: 0pt 3pt;\"\n                    title=\"Current Temperature\">18.83°C</div>\n                <div style=\"display: block; width: 85px; overflow: visible;\"></div>\n            </div>\n        </div>\n        <div style=\"display: block; clear: left; font-size: small;\">Clouds: 20%</div>\n        <div style=\"display: block; clear: left; color: gray; font-size: x-small;\">Humidity: 80%</div>\n        <div style=\"display: block; clear: left; color: gray; font-size: x-small;\">Wind: 3.09 m/s</div>\n        <div style=\"display: block; clear: left; color: gray; font-size: x-small;\">Pressure: 1011hPa</div>\n    </div>\n    <div style=\"display: block; clear: left; color: gray; font-size: x-small;\">\n        <a href=\"http://openweathermap.org/city/6615326?utm_source=openweathermap&utm_medium=widget&utm_campaign=html_old\"\n            target=\"_blank\">More..</a>\n    </div>\n    <script>\n        (function(i,s,o,g,r,a,m){i[&#x27;GoogleAnalyticsObject&#x27;]=r;i[r]=i[r]||function(){\n(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\nm=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n})(window,document,&#x27;script&#x27;,&#x27;//www.google-analytics.com/analytics.js&#x27;,&#x27;ga&#x27;);ga(&#x27;create&#x27;, &#x27;UA-31601618-9&#x27;, &#x27;auto&#x27;);ga(&#x27;send&#x27;, &#x27;pageview&#x27;);\n    </script>\n</body>\n\n</html>\n\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Units",
+			"item": [
+				{
+					"name": "Standard",
+					"protocolProfileBehavior": {
+						"strictSSL": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/weather/city?city=Riga&units=standard",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"city"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Riga"
+								},
+								{
+									"key": "units",
+									"value": "standard"
+								}
+							]
+						},
+						"description": "``` json\n{\n    \"coord\": {\n        \"lon\": 24.1052,\n        \"lat\": 56.9494\n    },\n    \"weather\": [\n        {\n            \"id\": 801,\n            \"main\": \"Clouds\",\n            \"description\": \"few clouds\",\n            \"icon\": \"02n\"\n        }\n    ],\n    \"base\": \"stations\",\n    \"main\": {\n        \"temp\": 18.83,\n        \"feels_like\": 18.86,\n        \"temp_min\": 16.96,\n        \"temp_max\": 18.83,\n        \"pressure\": 1011,\n        \"humidity\": 80\n    },\n    \"visibility\": 10000,\n    \"wind\": {\n        \"speed\": 3.09,\n        \"deg\": 180\n    },\n    \"clouds\": {\n        \"all\": 20\n    },\n    \"dt\": 1717189546,\n    \"sys\": {\n        \"type\": 2,\n        \"id\": 2075320,\n        \"country\": \"LV\",\n        \"sunrise\": 1717205915,\n        \"sunset\": 1717268680\n    },\n    \"timezone\": 10800,\n    \"id\": 6615326,\n    \"name\": \"Vecrīga\",\n    \"cod\": 200\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Metric",
+					"protocolProfileBehavior": {
+						"strictSSL": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/weather/city?city=Riga&units=metric",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"city"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Riga"
+								},
+								{
+									"key": "units",
+									"value": "metric"
+								}
+							]
+						},
+						"description": "``` json\n{\n    \"coord\": {\n        \"lon\": 24.1052,\n        \"lat\": 56.9494\n    },\n    \"weather\": [\n        {\n            \"id\": 801,\n            \"main\": \"Clouds\",\n            \"description\": \"few clouds\",\n            \"icon\": \"02n\"\n        }\n    ],\n    \"base\": \"stations\",\n    \"main\": {\n        \"temp\": 18.83,\n        \"feels_like\": 18.86,\n        \"temp_min\": 16.96,\n        \"temp_max\": 18.83,\n        \"pressure\": 1011,\n        \"humidity\": 80\n    },\n    \"visibility\": 10000,\n    \"wind\": {\n        \"speed\": 3.09,\n        \"deg\": 180\n    },\n    \"clouds\": {\n        \"all\": 20\n    },\n    \"dt\": 1717189546,\n    \"sys\": {\n        \"type\": 2,\n        \"id\": 2075320,\n        \"country\": \"LV\",\n        \"sunrise\": 1717205915,\n        \"sunset\": 1717268680\n    },\n    \"timezone\": 10800,\n    \"id\": 6615326,\n    \"name\": \"Vecrīga\",\n    \"cod\": 200\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Imperial",
+					"protocolProfileBehavior": {
+						"strictSSL": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/weather/city?city=Riga&units=imperial",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"city"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Riga"
+								},
+								{
+									"key": "units",
+									"value": "imperial"
+								}
+							]
+						},
+						"description": "``` json\n{\n    \"coord\": {\n        \"lon\": 24.1052,\n        \"lat\": 56.9494\n    },\n    \"weather\": [\n        {\n            \"id\": 801,\n            \"main\": \"Clouds\",\n            \"description\": \"few clouds\",\n            \"icon\": \"02n\"\n        }\n    ],\n    \"base\": \"stations\",\n    \"main\": {\n        \"temp\": 65.89,\n        \"feels_like\": 65.98,\n        \"temp_min\": 62.53,\n        \"temp_max\": 65.89,\n        \"pressure\": 1011,\n        \"humidity\": 81\n    },\n    \"visibility\": 10000,\n    \"wind\": {\n        \"speed\": 6.91,\n        \"deg\": 180\n    },\n    \"clouds\": {\n        \"all\": 20\n    },\n    \"dt\": 1717189915,\n    \"sys\": {\n        \"type\": 2,\n        \"id\": 2075320,\n        \"country\": \"LV\",\n        \"sunrise\": 1717205915,\n        \"sunset\": 1717268680\n    },\n    \"timezone\": 10800,\n    \"id\": 6615326,\n    \"name\": \"Vecrīga\",\n    \"cod\": 200\n}\n\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lang",
+			"item": [
+				{
+					"name": "En",
+					"protocolProfileBehavior": {
+						"strictSSL": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/weather/city?city=Riga&lang=en",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"city"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Riga"
+								},
+								{
+									"key": "lang",
+									"value": "en"
+								}
+							]
+						},
+						"description": "``` json\n{\n    \"coord\": {\n        \"lon\": 24.1052,\n        \"lat\": 56.9494\n    },\n    \"weather\": [\n        {\n            \"id\": 801,\n            \"main\": \"Clouds\",\n            \"description\": \"few clouds\",\n            \"icon\": \"02n\"\n        }\n    ],\n    \"base\": \"stations\",\n    \"main\": {\n        \"temp\": 291.11,\n        \"feels_like\": 291.26,\n        \"temp_min\": 291.11,\n        \"temp_max\": 291.11,\n        \"pressure\": 1011,\n        \"humidity\": 88\n    },\n    \"visibility\": 10000,\n    \"wind\": {\n        \"speed\": 1.54,\n        \"deg\": 360\n    },\n    \"clouds\": {\n        \"all\": 20\n    },\n    \"dt\": 1717187771,\n    \"sys\": {\n        \"type\": 1,\n        \"id\": 1876,\n        \"country\": \"LV\",\n        \"sunrise\": 1717119584,\n        \"sunset\": 1717182193\n    },\n    \"timezone\": 10800,\n    \"id\": 6615326,\n    \"name\": \"Vecrīga\",\n    \"cod\": 200\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Es",
+					"protocolProfileBehavior": {
+						"strictSSL": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/weather/city?city=Riga&lang=es",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"city"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Riga"
+								},
+								{
+									"key": "lang",
+									"value": "es"
+								}
+							]
+						},
+						"description": "``` json\n{\n    \"coord\": {\n        \"lon\": 24.1052,\n        \"lat\": 56.9494\n    },\n    \"weather\": [\n        {\n            \"id\": 801,\n            \"main\": \"Clouds\",\n            \"description\": \"algo de nubes\",\n            \"icon\": \"02n\"\n        }\n    ],\n    \"base\": \"stations\",\n    \"main\": {\n        \"temp\": 291.98,\n        \"feels_like\": 292.03,\n        \"temp_min\": 290.11,\n        \"temp_max\": 291.98,\n        \"pressure\": 1011,\n        \"humidity\": 81\n    },\n    \"visibility\": 10000,\n    \"wind\": {\n        \"speed\": 3.09,\n        \"deg\": 180\n    },\n    \"clouds\": {\n        \"all\": 20\n    },\n    \"dt\": 1717190035,\n    \"sys\": {\n        \"type\": 2,\n        \"id\": 2075320,\n        \"country\": \"LV\",\n        \"sunrise\": 1717205915,\n        \"sunset\": 1717268680\n    },\n    \"timezone\": 10800,\n    \"id\": 6615326,\n    \"name\": \"Vecrīga\",\n    \"cod\": 200\n}\n\n ```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Basic Request",
+			"protocolProfileBehavior": {
+				"strictSSL": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/weather/city?city=Riga",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"weather",
+						"city"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Riga"
+						}
+					]
+				},
+				"description": "**Mandatory params**:  \n\\- city\n\n**Optional params**:  \n\\- mode (default: _json;_ availble options: _json/xml/html_)\n\n\\- units (default: _standard_ _;_ availble options: _standard/metric/imperial_)\n\n\\- mode (default: _standard;_ availble options: _json/xml/html_)\n\n\\- lang (default: _en;_ availble options: _en/es/de/fr/ja/ru/it/pt_)\n\n**Important**:  \nSuccessfull responses are cached for 10 mintes!\n\n``` json\n{\n    \"coord\": {\n        \"lon\": 24.1052,\n        \"lat\": 56.9494\n    },\n    \"weather\": [\n        {\n            \"id\": 801,\n            \"main\": \"Clouds\",\n            \"description\": \"few clouds\",\n            \"icon\": \"02n\"\n        }\n    ],\n    \"base\": \"stations\",\n    \"main\": {\n        \"temp\": 291.11,\n        \"feels_like\": 291.26,\n        \"temp_min\": 291.11,\n        \"temp_max\": 291.11,\n        \"pressure\": 1011,\n        \"humidity\": 88\n    },\n    \"visibility\": 10000,\n    \"wind\": {\n        \"speed\": 1.54,\n        \"deg\": 360\n    },\n    \"clouds\": {\n        \"all\": 20\n    },\n    \"dt\": 1717187771,\n    \"sys\": {\n        \"type\": 1,\n        \"id\": 1876,\n        \"country\": \"LV\",\n        \"sunrise\": 1717119584,\n        \"sunset\": 1717182193\n    },\n    \"timezone\": 10800,\n    \"id\": 6615326,\n    \"name\": \"Vecrīga\",\n    \"cod\": 200\n}\n\n ```"
+			},
+			"response": []
+		}
+	]
+}
