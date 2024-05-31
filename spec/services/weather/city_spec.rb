@@ -19,7 +19,7 @@ RSpec.describe(Weather::City) do
       let(:expected_result) { stubbed_weather_response }
 
       it "returns 200 response and cashes it" do
-        expect(current_weather).to(eq(expected_result))
+        expect(current_weather).to eq(expected_result)
         expect(Rails.cache.exist?(cache_key, namespace: :weather_city_current_weather)).to(be(true))
       end
     end
@@ -28,10 +28,10 @@ RSpec.describe(Weather::City) do
       let(:stubbed_geocoding_response) { File.read("spec/services/open_weather_map/clients/examples/geocoding/401.json") }
       let(:geocoding_client) { instance_double(OpenWeatherMap::Clients::Geocoding, direct: [401, stubbed_geocoding_response]) }
       let(:weather_client) { nil }
-      let(:expected_result) { { error: "Can't access OpenWeatherMap API" } }
+      let(:expected_result) { [Weather::Errors::InvalidTokenError, "Can't access OpenWeatherMap API"] }
 
-      it "returns error and does not cache it" do
-        expect(current_weather).to(eq(expected_result))
+      it "raises error and does not cache it" do
+        expect { current_weather }.to raise_error(*expected_result)
         expect(Rails.cache.exist?(cache_key, namespace: :weather_city_current_weather)).to(be(false))
       end
     end
@@ -41,38 +41,51 @@ RSpec.describe(Weather::City) do
 
       let(:geocoding_client) { nil }
       let(:weather_client) { nil }
-      let(:expected_result) { { error: "City name can't be blank" } }
+      let(:expected_result) { [Weather::Errors::WeatherFetchError, "City name can't be blank"] }
 
-      it "returns returns error and does not cache it" do
-        expect(current_weather).to(eq(expected_result))
+      it "raises error and does not cache it" do
+        expect { current_weather }.to raise_error(*expected_result)
         expect(Rails.cache.exist?(cache_key, namespace: :weather_city_current_weather)).to(be(false))
       end
     end
 
-    context "with invalid city nanme" do
+    context "with invalid city name" do
       let(:city) { "XXX" }
 
       let(:geocoding_client) { instance_double(OpenWeatherMap::Clients::Geocoding, direct: [200, [].to_json]) }
       let(:weather_client) { nil }
-      let(:expected_result) { { error: "Can't locate the city" } }
+      let(:expected_result) { [Weather::Errors::CityNotFoundError, "Can't locate the city"] }
 
-      it "returns returns error and does not cache it" do
-        expect(current_weather).to(eq(expected_result))
+      it "raises error and does not cache it" do
+        expect { current_weather }.to raise_error(*expected_result)
         expect(Rails.cache.exist?(cache_key, namespace: :weather_city_current_weather)).to(be(false))
       end
     end
 
-    context "with invalid city nanme" do
-      let(:city) { "XXX" }
+    context "with invalid weather token" do
+      let(:city) { "London" }
 
       let(:stubbed_geocoding_response) { File.read("spec/services/open_weather_map/clients/examples/geocoding/200.json") }
       let(:stubbed_weather_response) { File.read("spec/services/open_weather_map/clients/examples/weather/401.json") }
       let(:geocoding_client) { instance_double(OpenWeatherMap::Clients::Geocoding, direct: [200, stubbed_geocoding_response]) }
       let(:weather_client) { instance_double(OpenWeatherMap::Clients::Weather, current_weather: [401, stubbed_weather_response]) }
-      let(:expected_result) { { error: "Can't get weather information" } }
+      let(:expected_result) { [Weather::Errors::InvalidTokenError, "Can't access OpenWeatherMap API"] }
 
-      it "returns returns error and does not cache it" do
-        expect(current_weather).to(eq(expected_result))
+      it "raises error and does not cache it" do
+        expect { current_weather }.to raise_error(*expected_result)
+        expect(Rails.cache.exist?(cache_key, namespace: :weather_city_current_weather)).to(be(false))
+      end
+    end
+
+    context "when invalid coorditates" do
+      let(:stubbed_geocoding_response) { File.read("spec/services/open_weather_map/clients/examples/geocoding/200.json") }
+      let(:stubbed_weather_response) { File.read("spec/services/open_weather_map/clients/examples/weather/400.json") }
+      let(:geocoding_client) { instance_double(OpenWeatherMap::Clients::Geocoding, direct: [200, stubbed_geocoding_response]) }
+      let(:weather_client) { instance_double(OpenWeatherMap::Clients::Weather, current_weather: [400, stubbed_weather_response]) }
+      let(:expected_result) { [Weather::Errors::WeatherFetchError, "Can't get weather information"] }
+
+      it "raises error and does not cache it" do
+        expect { current_weather }.to raise_error(*expected_result)
         expect(Rails.cache.exist?(cache_key, namespace: :weather_city_current_weather)).to(be(false))
       end
     end

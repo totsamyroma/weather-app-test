@@ -22,7 +22,7 @@ module Weather
     end
 
     def current_weather
-      return { error: "City name can't be blank" } if @city.blank?
+      raise Errors::WeatherFetchError, "City name can't be blank" if @city.blank?
 
       @mode = DEFAULT_MODE unless @mode.in?(ALLOWED_MODES)
       @units = DEFAULT_UNITS unless @units.in?(ALLOWED_UNITS)
@@ -31,15 +31,16 @@ module Weather
       Caching.fetch(cache_key, namespace: CACHE_NAMESPACE) do
         code, body = @geocoding_client.direct(q: @city)
 
-        break { error: "Can't access OpenWeatherMap API" } if code == 401
+        raise Errors::InvalidTokenError, "Can't access OpenWeatherMap API" if code == 401
 
         geolocation = JSON.parse(body).first
 
-        break { error: "Can't locate the city" } unless geolocation && code == 200
+        raise Errors::CityNotFoundError, "Can't locate the city" unless geolocation && code == 200
 
         code, body = @weather_client.current_weather(lat: geolocation["lat"], lon: geolocation["lon"], units: @units, mode: @mode, lang: @lang)
 
-        break { error: "Can't get weather information" } unless code == 200
+        raise Errors::InvalidTokenError, "Can't access OpenWeatherMap API" if code == 401
+        raise Errors::WeatherFetchError, "Can't get weather information" unless code == 200
 
         body
       end
