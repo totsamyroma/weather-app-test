@@ -1,6 +1,8 @@
 # app/controllers/api/v1/weather_controller.rb
 
 class Api::V1::WeatherController < ApplicationController
+  # TODO: add support for zip code with country code or direct coordinates forecast
+  # Could be separeate api endpoints like /api/v1/weather/zip?zip_code=123&country_code=UK and /api/v1/weather/coordinates?lat=123&lon=123
   def city
     respond_to do |format|
       format.json { render json: city_weather }

@@ -25,6 +25,7 @@ module OpenWeatherMap
         cache_key = query.except(:appid)
 
         Caching.fetch(cache_key, namespace: CACHE_NAMESPACE) do
+          # TODO: Implement rate limiter for OpenWeatherMap API to avoid calls/min limit
           response = get("/weather", query:)
 
           break [response.code, response.body] unless response.success?
